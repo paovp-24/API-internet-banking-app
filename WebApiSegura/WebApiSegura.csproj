@@ -185,6 +185,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Cuenta_CreditoController.cs" />
+    <Compile Include="Controllers\Cuenta_DebitoController.cs" />
+    <Compile Include="Controllers\EmisorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EstadisticaController.cs" />
     <Compile Include="Controllers\FiadorController.cs" />
@@ -199,6 +202,8 @@
     <Compile Include="Controllers\PropiedadController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
+    <Compile Include="Controllers\SucursalController.cs" />
+    <Compile Include="Controllers\TarjetaController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
@@ -354,7 +359,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\Cuenta_Credito\" />
+    <Folder Include="Views\Cuenta_Debito\" />
+    <Folder Include="Views\Emisor\" />
     <Folder Include="Views\Prestamo\" />
+    <Folder Include="Views\Sucursal\" />
+    <Folder Include="Views\Tarjeta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

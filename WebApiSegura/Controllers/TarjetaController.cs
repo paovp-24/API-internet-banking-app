@@ -6,16 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiSegura.Models;
 
 
 namespace WebApiSegura.Controllers
 {
-
-
-
     [AllowAnonymous]
     [RoutePrefix("api/Tarjeta")]
+    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
     public class TarjetaController : ApiController
     {
         [HttpGet]
@@ -120,7 +119,7 @@ namespace WebApiSegura.Controllers
 
 
                     sqlCommand.Parameters.AddWithValue("@CodigoEmisor", tarjeta.CodigoEmisor);
-              
+
                     sqlCommand.Parameters.AddWithValue("@Numero", tarjeta.Numero);
                     sqlCommand.Parameters.AddWithValue("@FechaEmision", tarjeta.FechaEmision);
                     sqlCommand.Parameters.AddWithValue("@FechaVencimiento", tarjeta.FechaVencimiento);
@@ -165,7 +164,7 @@ namespace WebApiSegura.Controllers
 
                     sqlCommand.Parameters.AddWithValue("@Codigo", tarjeta.Codigo);
                     sqlCommand.Parameters.AddWithValue("@CodigoEmisor", tarjeta.CodigoEmisor);
-                   
+
                     sqlCommand.Parameters.AddWithValue("@Numero", tarjeta.Numero);
                     sqlCommand.Parameters.AddWithValue("@FechaEmision", tarjeta.FechaEmision);
                     sqlCommand.Parameters.AddWithValue("@FechaVencimiento", tarjeta.FechaVencimiento);
@@ -220,5 +219,3 @@ namespace WebApiSegura.Controllers
         }
     }
 }
-
-

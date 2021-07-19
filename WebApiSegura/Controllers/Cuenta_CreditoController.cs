@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiSegura.Models;
 
 namespace WebApiSegura.Controllers
 {
-
     [AllowAnonymous]
     [RoutePrefix("api/Cuenta_Credito")]
+    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
     public class Cuenta_CreditoController : ApiController
     {
         [HttpGet]
@@ -137,9 +138,9 @@ namespace WebApiSegura.Controllers
                     sqlCommand.Parameters.AddWithValue("@Descripción", cuenta_credito.Descripción);
                     sqlCommand.Parameters.AddWithValue("@IBAN", cuenta_credito.IBAN);
                     sqlCommand.Parameters.AddWithValue("@Saldo", cuenta_credito.Saldo);
-                
-                  
-                   
+
+
+
                     sqlCommand.Parameters.AddWithValue("@FechaPago", cuenta_credito.FechaPago);
                     sqlCommand.Parameters.AddWithValue("@PagoMinimo", cuenta_credito.PagoMinimo);
                     sqlCommand.Parameters.AddWithValue("@PagoContado", cuenta_credito.PagoContado);
@@ -252,5 +253,3 @@ CodigoTarjeta=@CodigoTarjeta,
         }
     }
 }
-        
-    

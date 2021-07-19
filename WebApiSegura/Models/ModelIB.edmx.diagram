@@ -43,6 +43,8 @@
         <AssociationConnector Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Pago_Tarjeta" ManuallyRouted="false" />
         <AssociationConnector Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Prestamo_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Propiedad_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Credito_Tarjeta" />
+        <AssociationConnector Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Debito_Tarjeta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

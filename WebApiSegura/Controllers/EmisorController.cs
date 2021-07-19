@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiSegura.Models;
 
 
@@ -13,6 +14,7 @@ namespace WebApiSegura.Controllers
 {
     [AllowAnonymous]
     [RoutePrefix("api/Emisor")]
+    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
     public class EmisorController : ApiController
     {
 
@@ -200,5 +202,3 @@ namespace WebApiSegura.Controllers
         }
     }
 }
-
-

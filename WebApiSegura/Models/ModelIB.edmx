@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="INTERNET_BANKIN_ULACIT_DWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="INTERNET_BANKIN_ULACIT_DWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cuenta_Credito">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -13,6 +13,7 @@
           <Property Name="CodigoUsuario" Type="int" Nullable="false" />
           <Property Name="CodigoMoneda" Type="int" Nullable="false" />
           <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoTarjeta" Type="int" Nullable="false" />
           <Property Name="Descripción" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IBAN" Type="varchar" MaxLength="22" Nullable="false" />
           <Property Name="Saldo" Type="numeric" Precision="18" Scale="2" Nullable="false" />
@@ -29,6 +30,7 @@
           <Property Name="CodigoUsuario" Type="int" Nullable="false" />
           <Property Name="CodigoMoneda" Type="int" Nullable="false" />
           <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoTarjeta" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IBAN" Type="varchar" MaxLength="22" Nullable="false" />
           <Property Name="Saldo" Type="numeric" Precision="18" Scale="2" Nullable="false" />
@@ -184,23 +186,12 @@
           <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Telefono" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
           <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodigoEmisor" Type="int" Nullable="false" />
-          <Property Name="CodigoCuenta" Type="int" Nullable="false" />
           <Property Name="Numero" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaEmision" Type="datetime" Nullable="false" />
           <Property Name="FechaVencimiento" Type="datetime" Nullable="false" />
@@ -255,6 +246,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cuenta_Credito_Tarjeta">
+          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="1" />
+          <End Role="Cuenta_Credito" Type="Self.Cuenta_Credito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cuenta_Credito">
+              <PropertyRef Name="CodigoTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cuenta_Credito_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Cuenta_Credito" Type="Self.Cuenta_Credito" Multiplicity="*" />
@@ -288,6 +291,18 @@
             </Principal>
             <Dependent Role="Cuenta_Debito">
               <PropertyRef Name="CodigoSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuenta_Debito_Tarjeta">
+          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="1" />
+          <End Role="Cuenta_Debito" Type="Self.Cuenta_Debito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cuenta_Debito">
+              <PropertyRef Name="CodigoTarjeta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -411,30 +426,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tarjeta_Cuenta_Credito">
-          <End Role="Cuenta_Credito" Type="Self.Cuenta_Credito" Multiplicity="1" />
-          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cuenta_Credito">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Tarjeta">
-              <PropertyRef Name="CodigoCuenta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tarjeta_Cuenta_Debito">
-          <End Role="Cuenta_Debito" Type="Self.Cuenta_Debito" Multiplicity="1" />
-          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cuenta_Debito">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Tarjeta">
-              <PropertyRef Name="CodigoCuenta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tarjeta_Emisor">
           <End Role="Emisor" Type="Self.Emisor" Multiplicity="1" />
           <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="*" />
@@ -464,7 +455,6 @@
           <EntitySet Name="Servicio" EntityType="Self.Servicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transferencia" EntityType="Self.Transferencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -474,6 +464,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Cuenta_Credito_Sucursal" Association="Self.FK_Cuenta_Credito_Sucursal">
             <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Cuenta_Credito" EntitySet="Cuenta_Credito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Credito_Tarjeta" Association="Self.FK_Cuenta_Credito_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
             <End Role="Cuenta_Credito" EntitySet="Cuenta_Credito" />
           </AssociationSet>
           <AssociationSet Name="FK_Cuenta_Credito_Usuario" Association="Self.FK_Cuenta_Credito_Usuario">
@@ -486,6 +480,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Cuenta_Debito_Sucursal" Association="Self.FK_Cuenta_Debito_Sucursal">
             <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Cuenta_Debito" EntitySet="Cuenta_Debito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Debito_Tarjeta" Association="Self.FK_Cuenta_Debito_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
             <End Role="Cuenta_Debito" EntitySet="Cuenta_Debito" />
           </AssociationSet>
           <AssociationSet Name="FK_Cuenta_Debito_Usuario" Association="Self.FK_Cuenta_Debito_Usuario">
@@ -528,21 +526,12 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Propiedad" EntitySet="Propiedad" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tarjeta_Cuenta_Credito" Association="Self.FK_Tarjeta_Cuenta_Credito">
-            <End Role="Cuenta_Credito" EntitySet="Cuenta_Credito" />
-            <End Role="Tarjeta" EntitySet="Tarjeta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tarjeta_Cuenta_Debito" Association="Self.FK_Tarjeta_Cuenta_Debito">
-            <End Role="Cuenta_Debito" EntitySet="Cuenta_Debito" />
-            <End Role="Tarjeta" EntitySet="Tarjeta" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tarjeta_Emisor" Association="Self.FK_Tarjeta_Emisor">
             <End Role="Emisor" EntitySet="Emisor" />
             <End Role="Tarjeta" EntitySet="Tarjeta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="INTERNET_BANKIN_ULACIT_DWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -565,6 +554,8 @@
           <NavigationProperty Name="Sucursal" Relationship="Self.FK_Cuenta_Credito_Sucursal" FromRole="Cuenta_Credito" ToRole="Sucursal" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Cuenta_Credito_Usuario" FromRole="Cuenta_Credito" ToRole="Usuario" />
           <NavigationProperty Name="Tarjeta" Relationship="Self.FK_Tarjeta_Cuenta_Credito" FromRole="Cuenta_Credito" ToRole="Tarjeta" />
+          <Property Name="CodigoTarjeta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tarjeta1" Relationship="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Credito_Tarjeta" FromRole="Cuenta_Credito" ToRole="Tarjeta" />
         </EntityType>
         <EntityType Name="Cuenta_Debito">
           <Key>
@@ -582,6 +573,8 @@
           <NavigationProperty Name="Sucursal" Relationship="Self.FK_Cuenta_Debito_Sucursal" FromRole="Cuenta_Debito" ToRole="Sucursal" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Cuenta_Debito_Usuario" FromRole="Cuenta_Debito" ToRole="Usuario" />
           <NavigationProperty Name="Tarjeta" Relationship="Self.FK_Tarjeta_Cuenta_Debito" FromRole="Cuenta_Debito" ToRole="Tarjeta" />
+          <Property Name="CodigoTarjeta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tarjeta1" Relationship="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Debito_Tarjeta" FromRole="Cuenta_Debito" ToRole="Tarjeta" />
         </EntityType>
         <EntityType Name="Emisor">
           <Key>
@@ -776,6 +769,8 @@
           <NavigationProperty Name="Cuenta_Debito" Relationship="Self.FK_Tarjeta_Cuenta_Debito" FromRole="Tarjeta" ToRole="Cuenta_Debito" />
           <NavigationProperty Name="Emisor" Relationship="Self.FK_Tarjeta_Emisor" FromRole="Tarjeta" ToRole="Emisor" />
           <NavigationProperty Name="Pago" Relationship="Self.FK_Pago_Tarjeta" FromRole="Tarjeta" ToRole="Pago" />
+          <NavigationProperty Name="Cuenta_Credito1" Relationship="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Credito_Tarjeta" FromRole="Tarjeta" ToRole="Cuenta_Credito" />
+          <NavigationProperty Name="Cuenta_Debito1" Relationship="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Debito_Tarjeta" FromRole="Tarjeta" ToRole="Cuenta_Debito" />
         </EntityType>
         <EntityType Name="Transferencia">
           <Key>
@@ -1117,7 +1112,39 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Propiedad" EntitySet="Propiedad" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Credito_Tarjeta" Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Credito_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
+            <End Role="Cuenta_Credito" EntitySet="Cuenta_Credito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Debito_Tarjeta" Association="INTERNET_BANKIN_ULACIT_DWModel.FK_Cuenta_Debito_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
+            <End Role="Cuenta_Debito" EntitySet="Cuenta_Debito" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Cuenta_Credito_Tarjeta">
+          <End Type="INTERNET_BANKIN_ULACIT_DWModel.Tarjeta" Role="Tarjeta" Multiplicity="1" />
+          <End Type="INTERNET_BANKIN_ULACIT_DWModel.Cuenta_Credito" Role="Cuenta_Credito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cuenta_Credito">
+              <PropertyRef Name="CodigoTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuenta_Debito_Tarjeta">
+          <End Type="INTERNET_BANKIN_ULACIT_DWModel.Tarjeta" Role="Tarjeta" Multiplicity="1" />
+          <End Type="INTERNET_BANKIN_ULACIT_DWModel.Cuenta_Debito" Role="Cuenta_Debito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cuenta_Debito">
+              <PropertyRef Name="CodigoTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1127,6 +1154,7 @@
           <EntitySetMapping Name="Cuenta_Credito">
             <EntityTypeMapping TypeName="INTERNET_BANKIN_ULACIT_DWModel.Cuenta_Credito">
               <MappingFragment StoreEntitySet="Cuenta_Credito">
+                <ScalarProperty Name="CodigoTarjeta" ColumnName="CodigoTarjeta" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="CodigoUsuario" ColumnName="CodigoUsuario" />
                 <ScalarProperty Name="CodigoMoneda" ColumnName="CodigoMoneda" />
@@ -1144,6 +1172,7 @@
           <EntitySetMapping Name="Cuenta_Debito">
             <EntityTypeMapping TypeName="INTERNET_BANKIN_ULACIT_DWModel.Cuenta_Debito">
               <MappingFragment StoreEntitySet="Cuenta_Debito">
+                <ScalarProperty Name="CodigoTarjeta" ColumnName="CodigoTarjeta" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="CodigoUsuario" ColumnName="CodigoUsuario" />
                 <ScalarProperty Name="CodigoMoneda" ColumnName="CodigoMoneda" />
@@ -1319,23 +1348,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="INTERNET_BANKIN_ULACIT_DWModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tarjeta">
             <EntityTypeMapping TypeName="INTERNET_BANKIN_ULACIT_DWModel.Tarjeta">
               <MappingFragment StoreEntitySet="Tarjeta">
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="CodigoEmisor" ColumnName="CodigoEmisor" />
-                <ScalarProperty Name="CodigoCuenta" ColumnName="CodigoCuenta" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
                 <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
