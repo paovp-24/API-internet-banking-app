@@ -11,7 +11,7 @@ using WebApiSegura.Models;
 
 namespace WebApiSegura.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [RoutePrefix("api/Inversion")]
     [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
     public class InversionController : ApiController

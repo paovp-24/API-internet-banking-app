@@ -108,7 +108,7 @@ namespace WebApiSegura.Controllers
                 {
                     SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO Promocion (CodigoEmisor, Empresa,
                                                             FechaInicio, FechaFinalizacion, Descuento) VALUES
-                                                            (@CodigoEmisor, @Empresa, @FechaInicio
+                                                            (@CodigoEmisor, @Empresa, @FechaInicio,
                                                             @FechaFinalizacion, @Descuento)", sqlConnection);
 
                     sqlCommand.Parameters.AddWithValue("@CodigoEmisor", promocion.CodigoEmisor);

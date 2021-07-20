@@ -147,7 +147,7 @@ namespace WebApiSegura.Controllers
                                                                                Placa = @Placa,
                                                                                Monto = @Monto, 
                                                                                FechaLimite = @FechaLimite,
-                                                                               Estado = @Estado,
+                                                                               Estado = @Estado
                                                                                WHERE Codigo = @Codigo", sqlConnection);
 
                     sqlCommand.Parameters.AddWithValue("@Codigo", marchamo.Codigo);
