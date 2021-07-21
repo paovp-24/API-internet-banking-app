@@ -11,7 +11,7 @@ using WebApiSegura.Models;
 
 namespace WebApiSegura.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [RoutePrefix("api/Sesion")]
     [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
     public class SesionController : ApiController
