@@ -107,7 +107,7 @@ namespace WebApiSegura.Controllers
                     SqlConnection(ConfigurationManager.ConnectionStrings["INTERNET_BANKING"].ConnectionString))
                 {
                     SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO Propiedad (CodigoUsuario, Ubicacion, Dimension, Descripcion, Estado, PrecioFiscal) VALUES
-                                                            (@CodigoUsuario, @CodigoMoneda, @Ubicacion, @Dimension, @Descripcion, @Estado, @PrecioFiscal)", sqlConnection);
+                                                            (@CodigoUsuario, @Ubicacion, @Dimension, @Descripcion, @Estado, @PrecioFiscal)", sqlConnection);
 
                     sqlCommand.Parameters.AddWithValue("@CodigoUsuario", propiedad.CodigoUsuario);
                     sqlCommand.Parameters.AddWithValue("@Ubicacion", propiedad.Ubicacion);
