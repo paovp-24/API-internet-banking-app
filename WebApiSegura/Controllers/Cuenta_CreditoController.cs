@@ -13,7 +13,7 @@ namespace WebApiSegura.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Cuenta_Credito")]
-    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:3000, https://api-internet-banking.azurewebsites.net", headers: "*", methods: "*")]
     public class Cuenta_CreditoController : ApiController
     {
         [HttpGet]

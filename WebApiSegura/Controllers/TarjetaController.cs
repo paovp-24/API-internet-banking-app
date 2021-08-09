@@ -14,7 +14,7 @@ namespace WebApiSegura.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Tarjeta")]
-    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:3000, https://api-internet-banking.azurewebsites.net", headers: "*", methods: "*")]
     public class TarjetaController : ApiController
     {
         [HttpGet]

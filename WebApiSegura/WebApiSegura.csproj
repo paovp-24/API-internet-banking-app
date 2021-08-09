@@ -333,6 +333,7 @@
     <Content Include="Models\ModelIB.edmx.diagram">
       <DependentUpon>ModelIB.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\API-internet-banking - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

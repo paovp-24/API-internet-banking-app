@@ -11,9 +11,9 @@ using WebApiSegura.Models;
 
 namespace WebApiSegura.Controllers
 {
-    [Authorize]
+    [Authorize]                                                                                                                         
     [RoutePrefix("api/Sesion")]
-    [EnableCors(origins: "http://localhost:3000, http://localhost:49220", headers: "*", methods: "*")]
+    [EnableCors(origins: "https://api-internet-banking.azurewebsites.net", headers: "*", methods: "*")]
     public class SesionController : ApiController
     {
         [HttpGet]
