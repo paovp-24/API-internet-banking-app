@@ -275,9 +275,6 @@
     <Compile Include="Models\Sucursal.cs">
       <DependentUpon>ModelIB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ModelIB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tarjeta.cs">
       <DependentUpon>ModelIB.tt</DependentUpon>
     </Compile>
