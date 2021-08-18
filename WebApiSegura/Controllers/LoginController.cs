@@ -12,7 +12,7 @@ namespace WebApiSegura.Controllers
 {
     [AllowAnonymous]
     [RoutePrefix("api/login")]
-    [EnableCors(origins: "http://localhost:3000, https://api-internet-banking.azurewebsites.net", headers: "*", methods: "*")]
+    [EnableCors(origins: "https://internet-banking-dw1.web.app, https://api-internet-banking.azurewebsites.net", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
 
